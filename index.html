@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      width: 100%;
+      height: 100%;
+
+    }
+
+    body {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: #333;
+
+    }
+
+    #clock {
+      width: 23em;
+      height: 19em;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+      padding: .5em 2em 2em 2em;
+      border: 6px solid white;
+      border-radius: 15px;
+      gap: 1em;
+    }
+
+    #motivate {
+      
+      width: 100%;
+      height: 9em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 2em;
+      font-weight: bold;
+      color: white;
+    }
+
+    #screen {
+      background-color: rgb(112, 13, 151);
+      width: 100%;
+      height: 10em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 3px solid white;
+      color: white;
+      /* gap: .5em; */
+      font-size: 4.3em;
+      list-style-type: none;
+      padding: .2em;
+      border-radius: 15px;
+    }
+
+    .hour,
+    .minute,
+    .second {
+      display: contents;
+      width: 33%;
+      height: 5em;
+    }
+
+    #buttons {
+      display: flex;
+      width: 100%;
+      height: 4em;
+      justify-content: center;
+      align-items: center;
+      /* background-color: yellow; */
+      font-size: 1.5em;
+      padding: .3em;
+      gap: .5em;
+    }
+
+    #start,
+    #pause,
+    #reset {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 29%;
+      height: 1em;
+      padding: .5em;
+      border-radius: 20px;
+      color: white;
+      border: 4px solid white;
+      cursor: pointer;
+
+    }
+
+    #start {
+      background-color: rgb(145, 236, 7);
+    }
+
+    #pause {
+      background-color: rgb(0, 162, 255);
+    }
+
+    #reset {
+      background-color: rgb(255, 47, 47);
+    }
+
+    #start:hover,
+    #start:active {
+      background-color: rgb(104, 170, 5);
+      transform: scale(.9);
+      color: rgb(199, 199, 199);
+    }
+
+    #pause:hover,
+    #pause:active {
+      background-color: rgb(18, 131, 141);
+      transform: scale(.9);
+      color: rgb(199, 199, 199);
+    }
+
+    #reset:hover,
+    #reset:active {
+      background-color: rgb(187, 23, 23);
+      transform: scale(.9);
+      color: rgb(199, 199, 199);
+    }
+    #clock{
+      transform: scale(.65);
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="clock">
+    <div id="motivate"></div>
+    <ul id="screen">
+      <div class="hour">
+        <li id="hour1">0</li>
+        <li id="hour2">0</li>
+      </div>
+      :
+      <div class="minute">
+        <li id="minute1">0</li>
+        <li id="minute2">0</li>
+      </div> :
+      <div class="second">
+        <li id="second1">0</li>
+        <li id="second2">0</li>
+      </div>
+    </ul>
+    <div id="buttons">
+      <div id="start" onclick="Start()">Start</div>
+      <div id="pause" onclick="Pause()">Pause</div>
+      <div id="reset" onclick="Reset()">Reset</div>
+
+    </div>
+
+  </div>
+  <audio id="tick-sound" src="tick.mp3" type="mp3" preload="auto"></audio>
+  <audio id="beep-sound" src="beep.mp3" type="mp3" preload="auto"></audio>
+  <script>
+    let hour1 = document.getElementById("hour1");
+    let hour2 = document.getElementById("hour2");
+    let minute1 = document.getElementById("minute1");
+    let minute2 = document.getElementById("minute2");
+    let second1 = document.getElementById("second1");
+    let second2 = document.getElementById("second2");
+    let tick = document.getElementById("tick-sound");
+    let beep = document.getElementById("beep-sound");
+    let box = document.getElementById("motivate")
+    function showMessages()
+    {
+      let messages = [
+      "Success starts with self-discipline.",
+      "You can do it!",
+      "You are the winner!",
+      "Never give up.",
+      "Believe in yourself.",
+      "Keep pushing forward.",
+      
+      "Dream big and work hard.",
+      "Every step counts.",
+      "Winners never quit.",
+      "Stay strong, stay positive.",
+      "Your time is coming.",
+      "Make it happen."
+    ]
+    for (let index = 0; index < messages.length; index++) {
+        motivationInt=setTimeout(() => {
+          box.textContent = messages[index];
+        }, index * 5000)
+      }
+    };
+     
+    let s1 = 0, s2 = 0;
+    let m1 = 0, m2 = 0;
+    let h1 = 0, h2 = 0;
+    let timer = null;
+
+    function Start() {
+      showMessages()
+      if (timer) return; // prevent multiple intervals
+      beep.play();
+      timer = setInterval(() => {
+        tick.currentTime = 0;
+        tick.play()
+        // increment the smallest digit
+        s2++;
+
+        // Nested if logic for carryover
+        if (s2 > 9) {
+          s2 = 0;
+          s1++;
+
+          if (s1 > 5) {
+            s1 = 0;
+            m2++;
+
+            if (m2 > 9) {
+              m2 = 0;
+              m1++;
+
+              if (m1 > 5) {
+                m1 = 0;
+                h2++;
+
+                if (h2 > 9) {
+                  h2 = 0;
+                  h1++;
+
+                  if (h1 > 9) {
+                    // 99:59:59 reached — reset to zero (or stop)
+                    h1 = h2 = m1 = m2 = s1 = s2 = 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        // update display digits
+        hour1.textContent = `${h1}`;
+        hour2.textContent = `${h2}`;
+        minute1.textContent = `${m1}`;
+        minute2.textContent = `${m2}`;
+        second1.textContent = `${s1}`;
+        second2.textContent = `${s2}`;
+      }, 1000);
+    };
+
+    function Pause() {
+      beep.play();
+      clearInterval(timer);
+      clearTimeout(motivationInt)
+      timer = null;
+    }
+
+    function Reset() {
+      beep.play();
+      clearInterval(timer);
+      timer = null;
+      h1 = h2 = m1 = m2 = s1 = s2 = 0;
+      hour1.textContent = hour2.textContent = 0;
+      minute1.textContent = minute2.textContent = 0;
+      second1.textContent = second2.textContent = 0;
+    }
+
+  </script>
+</body>
+
+</html>
