@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #333;
+
+}
+
+#clock {
+    width: 23em;
+    height: 19em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    padding: .5em 2em 2em 2em;
+    border: 6px solid white;
+    border-radius: 15px;
+    gap: 1em;
+}
+
+#motivate {
+
+    width: 100%;
+    height: 9em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+}
+
+#screen {
+    background-color: rgb(112, 13, 151);
+    width: 100%;
+    height: 10em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid white;
+    color: white;
+    /* gap: .5em; */
+    font-size: 4.3em;
+    list-style-type: none;
+    padding: .2em;
+    border-radius: 15px;
+}
+
+.hour,
+.minute,
+.second {
+    display: contents;
+    width: 33%;
+    height: 5em;
+}
+
+#buttons {
+    display: flex;
+    width: 100%;
+    height: 4em;
+    justify-content: center;
+    align-items: center;
+    /* background-color: yellow; */
+    font-size: 1.5em;
+    padding: .3em;
+    gap: .5em;
+}
+
+#start,
+#pause,
+#reset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 29%;
+    height: 1em;
+    padding: .5em;
+    border-radius: 20px;
+    color: white;
+    border: 4px solid white;
+    cursor: pointer;
+
+}
+
+#start {
+    background-color: rgb(145, 236, 7);
+}
+
+#pause {
+    background-color: rgb(0, 162, 255);
+}
+
+#reset {
+    background-color: rgb(255, 47, 47);
+}
+
+#start:hover,
+#start:active {
+    background-color: rgb(104, 170, 5);
+    transform: scale(.9);
+    color: rgb(199, 199, 199);
+}
+
+#pause:hover,
+#pause:active {
+    background-color: rgb(18, 131, 141);
+    transform: scale(.9);
+    color: rgb(199, 199, 199);
+}
+
+#reset:hover,
+#reset:active {
+    background-color: rgb(187, 23, 23);
+    transform: scale(.9);
+    color: rgb(199, 199, 199);
+}
+
+#ownerinfo {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    top: 96%;
+    left: 46%;
+    color: white;
+    font-size: 21px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+@media only screen and (max-width:445px) {
+    #clock {
+        transform: scale(.8);
+    }
+
+    #ownerinfo {
+        top: 96%;
+        left: 33%;
+        font-size: 19px;
+    }
+}
